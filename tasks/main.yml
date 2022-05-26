@@ -1,0 +1,32 @@
+---
+
+- name: Add Rancher repository
+  kubernetes.core.helm_repository:
+    name: '{{ rancher_repository.name }}'
+    repo_url: '{{ rancher_repository.url }}'
+
+- name: Install Rancher
+  kubernetes.core.helm:
+    name: rancher
+    chart_ref: rancher-stable/rancher
+    chart_version: '{{ rancher_repository.version }}'
+    release_namespace: cattle-system
+    create_namespace: true
+    update_repo_cache: true
+    values:
+      hostname: '{{ rancher_hostname }}'
+      bootstrapPassword: '{{ rancher_bootstrap_password }}'
+
+- name: Expose Rancher to load balancer
+  ansible.builtin.command:
+    cmd: kubectl expose deployment rancher --namespace cattle-system --type=LoadBalancer --name=rancher-lb --port=443
+  register: _rancher_loadbalancer_result
+  changed_when: _rancher_loadbalancer_result.stdout == 'service/rancher-lb exposed'
+  failed_when: >
+    _rancher_loadbalancer_result.rc != 0
+    and not '(AlreadyExists)' in _rancher_loadbalancer_result.stderr
+
+- name: Get Rancher deployment status
+  ansible.builtin.command:
+    cmd: kubectl rollout status deploy/rancher --namespace cattle-system
+  changed_when: false
