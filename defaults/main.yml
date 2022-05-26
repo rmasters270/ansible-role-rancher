@@ -1,9 +1,9 @@
 ---
 
 rancher_repository:
-  name: longhorn
-  url: https://charts.longhorn.io
-  version: v1.2.4
+  name: rancher-stable
+  url: https://releases.rancher.com/server-charts/stable
+  version: 2.6.5
 
 rancher_hostname: 'rancher.{{ ansible_domain }}'
 rancher_bootstrap_password: SuperSecretBootStrapPassword
