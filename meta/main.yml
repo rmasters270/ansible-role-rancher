@@ -1,5 +1,6 @@
 galaxy_info:
   author: rmasters270
+  role_name: rancher
   description: Install Rancher Helm Chart
   company: none
   license: MIT
