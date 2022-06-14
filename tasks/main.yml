@@ -16,15 +16,11 @@
     values:
       hostname: '{{ rancher_hostname }}'
       bootstrapPassword: '{{ rancher_bootstrap_password }}'
+      tls: '{{ rancher_tls }}'
 
-- name: Expose Rancher to load balancer
-  ansible.builtin.command:
-    cmd: kubectl expose deployment rancher --namespace cattle-system --type=LoadBalancer --name=rancher-lb --port=443
-  register: _rancher_loadbalancer_result
-  changed_when: _rancher_loadbalancer_result.stdout == 'service/rancher-lb exposed'
-  failed_when: >
-    _rancher_loadbalancer_result.rc != 0
-    and not '(AlreadyExists)' in _rancher_loadbalancer_result.stderr
+- name: Create Rancher ingressroute
+  kubernetes.core.k8s:
+    template: ingressroute.yaml.j2
 
 - name: Get Rancher deployment status
   ansible.builtin.command:

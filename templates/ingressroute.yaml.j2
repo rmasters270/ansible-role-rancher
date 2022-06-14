@@ -1,0 +1,20 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: rancher-web
+  namespace: cattle-system
+
+spec:
+  entryPoints:
+    - websecure
+
+  routes:
+    - match: Host(`{{ rancher_hostname }}`)
+      kind: Rule
+      services:
+        - name: rancher
+          port: 443
+  tls:
+    hosts:
+      - {{ rancher_hostname }}
