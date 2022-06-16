@@ -2,14 +2,14 @@
 
 - name: Add Rancher repository
   kubernetes.core.helm_repository:
-    name: '{{ rancher_repository.name }}'
-    repo_url: '{{ rancher_repository.url }}'
+    name: '{{ rancher_repo_name }}'
+    repo_url: '{{ rancher_repo_url }}'
 
 - name: Install Rancher
   kubernetes.core.helm:
     name: rancher
     chart_ref: rancher-stable/rancher
-    chart_version: '{{ rancher_repository.version }}'
+    chart_version: '{{ rancher_repo_version }}'
     release_namespace: cattle-system
     create_namespace: true
     update_repo_cache: true
