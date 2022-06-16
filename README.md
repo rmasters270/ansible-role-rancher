@@ -1,38 +1,84 @@
-Role Name
-=========
+# Rancher
 
-A brief description of the role goes here.
+Install Rancher on a Kubernetes cluster.
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+### Localhost
 
-Role Variables
---------------
+The role is intended to run from the Ansible controller.  If the playbook is executed on a different host it will fail because the templates must be copied to the target host.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+### Kube Config
 
-Dependencies
-------------
+The host and user running the playbook must have kube config configured.
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+### Helm
 
-Example Playbook
-----------------
+The host must have the Helm package manager installed.
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+## Role Variables
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+### rancher_hostname
 
-License
--------
+Used to issue ssl certificates and ingress routes.  You should also have a DNS entry pointing to this hostname.
 
-BSD
+default: `rancher.{{ ansible_domain }}`
 
-Author Information
-------------------
+### rancher_bootstrap_password
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Use this password to login to Rancher the first time.
+
+default: `SuperSecretBootStrapPassword`
+
+### rancher_tls
+
+Use `external` if an external load balancer such as Traefik or NGINX will terminate tls.
+
+default: `ingress`
+
+### rancher_repo_name
+
+Name of the Helm repository.
+
+default: `rancher-stable`
+
+### rancher_repo_url
+
+Url pointing to the Helm repository.
+
+default: `https://releases.rancher.com/server-charts/stable`
+
+### rancher_repo_version
+
+Chart version in the repository.
+
+The default value is pinned to the latest version at the time of writing.  Use `helm search repo rancher-stable` to list all versions of the chart.
+
+default: `2.6.5`
+
+## Dependencies
+
+Use `rmasters270.helm` role or install `kubernetes cli` and `helm` manually on the host.
+
+Setup `kube config` for the user account and host.
+
+## Example Playbook
+
+```yaml
+- hosts: localhost
+
+  vars:
+    rancher_bootstrap_password: your-random-password
+
+  roles:
+    - rmasters270.helm
+    - rmasters270.rancher
+```
+
+## License
+
+MIT
+
+## Author Information
+
+Ryan Masters
