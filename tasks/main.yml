@@ -15,7 +15,6 @@
     update_repo_cache: true
     values:
       hostname: '{{ rancher_hostname }}'
-      bootstrapPassword: '{{ rancher_bootstrap_password }}'
       tls: '{{ rancher_tls }}'
 
 - name: Create Rancher ingressroute

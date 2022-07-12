@@ -5,7 +5,7 @@ rancher_repo_url: https://releases.rancher.com/server-charts/stable
 rancher_repo_version: 2.6.5
 
 rancher_hostname: 'rancher.{{ ansible_domain }}'
-rancher_bootstrap_password: SuperSecretBootStrapPassword
+
 # Default "ingress", use "external" if an external load balancer such as
 #  traefik or nginx will terminate tls.
 rancher_tls: ingress
