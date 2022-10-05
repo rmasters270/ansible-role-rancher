@@ -2,6 +2,8 @@
 
 Install Rancher on a Kubernetes cluster.
 
+[![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-rancher-blue.svg)](https://galaxy.ansible.com/rmasters270/rancher)
+
 ## Requirements
 
 ### Localhost
@@ -18,43 +20,15 @@ The host must have the Helm package manager installed.
 
 ## Role Variables
 
-### rancher_hostname
-
-Used to issue ssl certificates and ingress routes.  You should also have a DNS entry pointing to this hostname.
-
-default: `rancher.{{ ansible_domain }}`
-
-### rancher_bootstrap_password
-
-Use this password to login to Rancher the first time.
-
-default: `SuperSecretBootStrapPassword`
-
-### rancher_tls
-
-Use `external` if an external load balancer such as Traefik or NGINX will terminate tls.
-
-default: `ingress`
-
-### rancher_repo_name
-
-Name of the Helm repository.
-
-default: `rancher-stable`
-
-### rancher_repo_url
-
-Url pointing to the Helm repository.
-
-default: `https://releases.rancher.com/server-charts/stable`
-
-### rancher_repo_version
-
-Chart version in the repository.
-
-The default value is pinned to the latest version at the time of writing.  Use `helm search repo rancher-stable` to list all versions of the chart.
-
-default: `2.6.5`
+| Variable                    | Required | Default                      | Choices           | Comments                                             |
+|-----------------------------|----------|------------------------------|-------------------|------------------------------------------------------|
+| heimdall_namespace          | yes      | heimdall                     |                   | Kubernetes namespace                                 |
+| rancher_repo_name           | yes      | rancher-stable               |                   | Helm repository name                                 |
+| rancher_repo_url            | yes      | <https://releases.rancher.com/server-charts/stable> | Helm repository URL                               |
+| rancher_repo_version        | yes      | 2.6.5                        |                   | Helm chart version                                   |
+| rancher_hostname            | yes      | rancher.{{ ansible_domain }} |                   | For ssl certificates and ingress routes              |
+| rancher_tls                 | no       | ingress                      | ingress, external | Use `external` if a load balancer will terminate TLS |
+| rancher_bootstrap_password  | no       | SuperSecretBootStrapPassword |                   | Password to login to Rancher the first time          |
 
 ## Dependencies
 
