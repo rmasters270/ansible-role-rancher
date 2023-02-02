@@ -14,7 +14,7 @@
     create_namespace: true
     update_repo_cache: true
     values:
-      hostname: '{{ rancher_hostname }}'
+      hostname: '{{ rancher_hostname.split(".")[0] }}'
       tls: '{{ rancher_tls }}'
 
 - name: Create Rancher ingress route
