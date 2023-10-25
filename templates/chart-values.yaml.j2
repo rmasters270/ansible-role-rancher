@@ -1,0 +1,5 @@
+hostname: '{{ rancher_hostname.split(".")[0] }}'
+tls: '{{ rancher_tls }}'
+{% if rancher_bootstrap_password is defined and rancher_bootstrap_password|length %}
+bootstrapPassword: '{{ rancher_bootstrap_password }}'
+{% endif %}
