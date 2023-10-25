@@ -25,7 +25,7 @@ The host must have the Helm package manager installed.
 | heimdall_namespace         | yes      | heimdall                                            |                     | Kubernetes namespace                                 |
 | rancher_repo_name          | yes      | rancher-stable                                      |                     | Helm repository name                                 |
 | rancher_repo_url           | yes      | <https://releases.rancher.com/server-charts/stable> | Helm repository URL |                                                      |
-| rancher_repo_version       | yes      | 2.6.5                                               |                     | Helm chart version                                   |
+| rancher_repo_version       | yes      | 2.7.6                                               |                     | Helm chart version                                   |
 | rancher_hostname           | yes      | rancher.{{ ansible_domain }}                        |                     | For ssl certificates and ingress routes              |
 | rancher_tls                | no       | ingress                                             | ingress, external   | Use `external` if a load balancer will terminate TLS |
 | rancher_bootstrap_password | no       | SuperSecretBootStrapPassword                        |                     | Password to login to Rancher the first time          |
