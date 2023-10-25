@@ -2,7 +2,7 @@
 
 Install Rancher on a Kubernetes cluster.
 
-[![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-rancher-blue.svg)](https://galaxy.ansible.com/rmasters270/rancher)
+[![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-rancher-blue.svg)](https://galaxy.ansible.com/ui/standalone/roles/rmasters270/rancher)
 
 ## Requirements
 
@@ -20,15 +20,15 @@ The host must have the Helm package manager installed.
 
 ## Role Variables
 
-| Variable                    | Required | Default                      | Choices           | Comments                                             |
-|-----------------------------|----------|------------------------------|-------------------|------------------------------------------------------|
-| heimdall_namespace          | yes      | heimdall                     |                   | Kubernetes namespace                                 |
-| rancher_repo_name           | yes      | rancher-stable               |                   | Helm repository name                                 |
-| rancher_repo_url            | yes      | <https://releases.rancher.com/server-charts/stable> | Helm repository URL                               |
-| rancher_repo_version        | yes      | 2.6.5                        |                   | Helm chart version                                   |
-| rancher_hostname            | yes      | rancher.{{ ansible_domain }} |                   | For ssl certificates and ingress routes              |
-| rancher_tls                 | no       | ingress                      | ingress, external | Use `external` if a load balancer will terminate TLS |
-| rancher_bootstrap_password  | no       | SuperSecretBootStrapPassword |                   | Password to login to Rancher the first time          |
+| Variable                   | Required | Default                                             | Choices             | Comments                                             |
+| -------------------------- | -------- | --------------------------------------------------- | ------------------- | ---------------------------------------------------- |
+| heimdall_namespace         | yes      | heimdall                                            |                     | Kubernetes namespace                                 |
+| rancher_repo_name          | yes      | rancher-stable                                      |                     | Helm repository name                                 |
+| rancher_repo_url           | yes      | <https://releases.rancher.com/server-charts/stable> | Helm repository URL |                                                      |
+| rancher_repo_version       | yes      | 2.6.5                                               |                     | Helm chart version                                   |
+| rancher_hostname           | yes      | rancher.{{ ansible_domain }}                        |                     | For ssl certificates and ingress routes              |
+| rancher_tls                | no       | ingress                                             | ingress, external   | Use `external` if a load balancer will terminate TLS |
+| rancher_bootstrap_password | no       | SuperSecretBootStrapPassword                        |                     | Password to login to Rancher the first time          |
 
 ## Dependencies
 
